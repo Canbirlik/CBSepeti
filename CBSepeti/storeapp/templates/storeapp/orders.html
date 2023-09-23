@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center"> 
+    <div class="col col-lg-2" style="padding: 10px;">
+        <span class="badge text-bg-success rounded-pill px-3" style="font-size: x-large; padding: 10px;">Orders</span>
+    </div>
+
+    {% if user.is_authenticated%}
+        <div class="row row-cols-1 row-cols-md-3 g-4">   
+            {% for order in Orders %}
+                <div class="col">
+                    <div class="card" style="width: 18rem; padding: 5px;">
+                        <h5 class="card-header" style="background-color: rgb(54, 93, 212);">{{order.Product_ID.Product_Description}}</h5>
+                        <div class="card-body">
+                            <p class="card-text">Sipariş Sahibi: {{order.Customer_Name}}</p>
+                            <p class="card-text">Birim Ürün Fiyatı: {{order.Price}} TL</p>
+                            <p class="card-text">Adet: {{order.Quantity}}</p>
+                            <p class="card-text">Sipariş Durumu: {{order.Status}}</p>
+                            <p class="card-text">Sipariş Tarihi: {{order.Date}}</p>
+                            <img src="{{order.Product_ID.Product_Image.url}}" class="card-img-top" alt="BJK">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>  
+    {% else %}
+        <h2>Sipariş verebilmeniz için kayıt olmanız gerekmektedir.</h2>
+    {%endif%}
+</div> 
+
+
+{% endblock %}

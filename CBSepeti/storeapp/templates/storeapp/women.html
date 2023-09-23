@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center"> 
+    <div class="col col-lg-2" style="padding: 10px;">
+        <span class="badge text-bg-success rounded-pill px-3" style="font-size: x-large; padding: 10px;">Women Page</span>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">   
+        {% for product in Products %}
+            <div class="col">
+                <div class="card" style="width: 18rem; padding: 5px;">
+                    <h5 class="card-header" style="background-color: rgb(54, 93, 212);">{{product.Product_Description}}</h5>
+                    <div class="card-body">
+                        <p class="card-text">Ürün Fiyatı: {{product.Product_Price}} TL</p>
+                        <img src="{{product.Product_Image.url}}" class="card-img-top" alt="BJK">
+                        {% if user.is_authenticated%}
+                            <form action="" method="POST" class="btn-block">
+                                {% csrf_token %}
+                                <input hidden type="text" name='product' value='{{product.id}}'>
+                                <input hidden type="text" name='price' value='{{product.Product_Price}}'>
+                                <input type="submit" class="float-right btn btn-success form-control"
+                                    value="Satın Al!">
+                            </form>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>  
+</div> 
+
+{% endblock %}
